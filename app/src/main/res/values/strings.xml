@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">KotlinPullAPart</string>
+    <string-array name="years">
+        <item>Year</item>
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+    </string-array>
+    <string-array name="makes">
+        <item>Make</item>
+        <item>Toyota</item>
+        <item>Honda</item>
+        <item>Nissan</item>
+    </string-array>
+    <string-array name="models">
+        <item>Model</item>
+        <item>Camry</item>
+        <item>Odyssey</item>
+        <item>Rogue</item>
+    </string-array>
+</resources>
