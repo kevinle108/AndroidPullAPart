@@ -1,21 +1,32 @@
 package com.example.kotlinpullapart
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.kotlinpullapart.api.RetrofitInstance
 import com.example.kotlinpullapart.databinding.ActivityMainBinding
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: MainViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
         val listParent = mutableListOf<String>(
             "Animals",
             "Birds",
@@ -31,7 +42,8 @@ class MainActivity : AppCompatActivity() {
             "Lion",
             "Elephant",
             "Monkey",
-            "Cow"
+            "Cow",
+            "Go!"
         )
         val listChildFlowers = arrayListOf<String>(
             "Rose",
@@ -61,6 +73,32 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
+        }
+
+        binding.spChild.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (listChildAnimals[position] == "Go!") {
+                    val activityIntent = Intent(this@MainActivity, ListTable::class.java)
+                    activityIntent.putExtra("TestConstant", 42)
+                    startActivity(activityIntent)
+                }
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        binding.button.setOnClickListener {
+            Log.i(TAG, "Button clicked!")
+            viewModel.getMakes()
         }
 
 
