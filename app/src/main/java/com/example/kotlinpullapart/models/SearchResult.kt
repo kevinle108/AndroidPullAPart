@@ -1,0 +1,151 @@
+package com.example.kotlinpullapart.models
+
+data class SearchResult(
+    val locationID: Int,
+    val exact: List<LotItem>
+)
+
+//{
+//    "locationID": 8,
+//    "exact": [
+//    {
+//        "vinID": 1299691,
+//        "ticketID": 1271235,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 2000,
+//        "row": 310,
+//        "vin": "4T3ZF13C4YU250625",
+//        "dateYardOn": "2021-10-11T17:08:02.08",
+//        "vinDecodedId": null,
+//        "extendedInfo": null
+//    },
+//    {
+//        "vinID": 1298868,
+//        "ticketID": 1270420,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 2000,
+//        "row": 348,
+//        "vin": "4T3GF19C4YU274664",
+//        "dateYardOn": "2021-08-05T09:14:52.007",
+//        "vinDecodedId": 45243,
+//        "extendedInfo": null
+//    },
+//    {
+//        "vinID": 1295476,
+//        "ticketID": 1267355,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 2000,
+//        "row": 359,
+//        "vin": "4T3ZF13C7YU208515",
+//        "dateYardOn": "2021-09-14T17:24:24.39",
+//        "vinDecodedId": 45245,
+//        "extendedInfo": null
+//    }
+//    ],
+//    "other": [
+//    {
+//        "vinID": 1299699,
+//        "ticketID": 1271243,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 2004,
+//        "row": 300,
+//        "vin": "5TDZA23C34S064977",
+//        "dateYardOn": "2021-10-05T08:59:57.987",
+//        "vinDecodedId": null,
+//        "extendedInfo": null
+//    },
+//    {
+//        "vinID": 1297813,
+//        "ticketID": 1269404,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 1998,
+//        "row": 325,
+//        "vin": "4T3ZF13C6WU058328",
+//        "dateYardOn": "2021-06-04T17:21:34.587",
+//        "vinDecodedId": null,
+//        "extendedInfo": null
+//    },
+//    {
+//        "vinID": 1298062,
+//        "ticketID": 1269652,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 2006,
+//        "row": 337,
+//        "vin": "5TDZA22C66S443654",
+//        "dateYardOn": "2021-06-22T17:11:20.57",
+//        "vinDecodedId": null,
+//        "extendedInfo": null
+//    },
+//    {
+//        "vinID": 1299352,
+//        "ticketID": 1270896,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 2004,
+//        "row": 356,
+//        "vin": "5TDZA23C04S067772",
+//        "dateYardOn": "2021-09-03T17:31:09.73",
+//        "vinDecodedId": null,
+//        "extendedInfo": null
+//    },
+//    {
+//        "vinID": 1299538,
+//        "ticketID": 1271082,
+//        "lineID": 1,
+//        "locID": 8,
+//        "locName": "Louisville",
+//        "makeID": 56,
+//        "makeName": "TOYOTA",
+//        "modelID": 861,
+//        "modelName": "SIENNA",
+//        "modelYear": 2001,
+//        "row": 361,
+//        "vin": "4T3ZF19C11U344913",
+//        "dateYardOn": "2021-09-17T17:21:58.927",
+//        "vinDecodedId": 41107,
+//        "extendedInfo": null
+//    }
+//    ],
+//    "inventory": null
+//}

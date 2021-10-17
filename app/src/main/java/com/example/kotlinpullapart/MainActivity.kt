@@ -27,6 +27,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+
+
+        //start count button
+        var count = 0;
+        binding.btnCount.setOnClickListener {
+            count++
+            binding.tvCount.text = "Let's count together: $count"
+        }
+
+        //end count button
+
         val listParent = mutableListOf<String>(
             "Animals",
             "Birds",
