@@ -1,10 +1,9 @@
 package com.example.kotlinpullapart.api
 
-import com.example.kotlinpullapart.models.CarMake
-import com.example.kotlinpullapart.models.CarModel
-import com.example.kotlinpullapart.models.SearchResult
-import com.example.kotlinpullapart.models.User
+import com.example.kotlinpullapart.models.*
 import okhttp3.RequestBody
+import org.json.JSONObject
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -22,7 +21,10 @@ interface PullAPartApi {
         @Query("makeID") id: Int
     ) : List<CarModel>
 
+    @Headers("Content-Type: application/json;charset=utf-8",)
     @POST("Vehicle/Search")
-    suspend fun vehicleSearch(@Body requestBody: RequestBody) : List<SearchResult>
+    suspend fun vehicleSearch(
+        @Body requestBody: Search
+    ) : Response<List<SearchResult>>
 
 }

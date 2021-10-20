@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parent"
+        android:text="parent spinner"
         android:textColor="#00f"
         android:textSize="30sp" />
 
@@ -25,7 +25,7 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="API" />
 
     <Button
         android:id="@+id/btnCount"
@@ -38,7 +38,7 @@
         android:id="@+id/tvCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Let's count together: 0"
+        android:text="Counter: 0"
         android:textAlignment="center"
         android:textColor="@android:color/holo_orange_light"
         android:textSize="30sp"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="Child"
+        android:text="child spinner"
         android:textColor="#f00"
         android:textSize="30sp" />
 

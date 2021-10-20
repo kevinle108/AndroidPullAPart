@@ -39,10 +39,15 @@ class MainActivity : AppCompatActivity() {
         //end count button
 
         val listParent = mutableListOf<String>(
-            "Animals",
-            "Birds",
-            "Flowers"
+            "Honda",
+            "Nissan",
+            "Toyota",
         )
+//        val listParent = mutableListOf<String>(
+//            "Animals",
+//            "Birds",
+//            "Flowers"
+//        )
         val arrayAdapterParent = ArrayAdapter(
             this, R.layout.textview_blue, listParent
         )

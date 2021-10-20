@@ -6,8 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.kotlinpullapart.api.RetrofitInstance
 import com.example.kotlinpullapart.models.CarMake
 import com.example.kotlinpullapart.models.CarModel
+import com.example.kotlinpullapart.models.Search
 import kotlinx.coroutines.launch
-import java.util.*
+import org.json.JSONObject
 
 private const val TAG = "MainViewModel"
 class MainViewModel: ViewModel() {
@@ -27,9 +28,8 @@ class MainViewModel: ViewModel() {
 //            Log.i(TAG, "models list size after: ${models.size}")
 
 
-            getModels()
-
-            //TODO: API call for each make number to fetch a list of models
+//            getModels()
+            searchCar()
         }
     }
 
@@ -73,6 +73,41 @@ class MainViewModel: ViewModel() {
 //            headers: { "Content-Type": "application/json; charset=UTF-8" },
 //            body: JSON.stringify(_data),
 //        })
+
+
+        viewModelScope.launch {
+//            val body = Search(listOf(8), listOf(861), 56, listOf(2000))
+            val search = Search(
+                listOf("8"),
+                listOf("861"),
+                "56",
+                listOf("2000")
+            )
+
+
+//            val body = JSONObject()
+//            jsonBody.put("location", listOf(8))
+//            jsonBody.put("models", 56)
+//            jsonBody.put("makeID", listOf(8))
+//            jsonBody.put("years", listOf(2000))
+
+//            val body = "{Locations: [8], MakeID: 56, Years: [2000], Models: [861]}"
+            Log.i(TAG, "request body: ${search}")
+            val response = RetrofitInstance.api.vehicleSearch(search)
+            if (response.isSuccessful) {
+                Log.i(TAG, "Response: $response")
+            } else {
+                Log.i(TAG, "Failed request")
+                Log.i(TAG, "Code: ${response.code()}")
+                Log.i(TAG, "Body: ${response.body()}")
+                Log.i(TAG, "Message: ${response.message()}")
+                Log.i(TAG, "ErrorBody: ${response.errorBody()}")
+                Log.i(TAG, "Headers: ${response.headers()}")
+
+            }
+        }
+
+
 
 
     }
