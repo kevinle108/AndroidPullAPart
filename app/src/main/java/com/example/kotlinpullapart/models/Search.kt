@@ -3,9 +3,9 @@ package com.example.kotlinpullapart.models
 import com.squareup.moshi.JsonClass
 
 data class Search(
-    val location: List<String>,
+    val locations: List<String>,
     val models: List<String>,
-    val makeID: String,
+    val makeID: Int,
     val years: List<String>
 )
 // "{Locations: [8], MakeID: 56, Years: [2000], Models: [861]}"

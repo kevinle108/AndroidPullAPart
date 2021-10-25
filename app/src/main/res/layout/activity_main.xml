@@ -27,23 +27,6 @@
         android:layout_height="wrap_content"
         android:text="API" />
 
-    <Button
-        android:id="@+id/btnCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="+1" />
-
-    <TextView
-
-        android:id="@+id/tvCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Counter: 0"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="30sp"
-        android:textStyle="italic|bold" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

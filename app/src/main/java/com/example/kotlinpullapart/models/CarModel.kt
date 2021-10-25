@@ -13,6 +13,6 @@ data class CarModel(
     val modelID: Int,
     val modelName: String,
     val makeID: Int,
-    val showWebsite: Boolean,
-    val showTouchscreen: Boolean,
+//    val showWebsite: Boolean,
+//    val showTouchscreen: Boolean,
 )

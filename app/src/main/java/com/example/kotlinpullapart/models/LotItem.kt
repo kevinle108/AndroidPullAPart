@@ -3,7 +3,7 @@ package com.example.kotlinpullapart.models
 data class LotItem(
     val row: Int,
     val locID: Int,
-    val locName: Int,
+    val locName: String,
     val makeID: Int,
     val makeName: String,
     val modelID: Int,
