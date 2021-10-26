@@ -3,7 +3,12 @@ package com.example.kotlinpullapart.data
 import com.example.kotlinpullapart.models.CarMake
 import com.example.kotlinpullapart.models.CarModel
 
+const val START_YEAR = 1955
+const val END_YEAR = 2021
+
+
 object StartUp {
+    val years: List<Int> = yearRange(START_YEAR, END_YEAR)
     val makes: List<CarMake> = mutableListOf(
 //        CarMake(0, "MAKE", false),
         CarMake(6, "ACURA", false),
@@ -1942,4 +1947,12 @@ object StartUp {
         134 to listOf(2274, 2275),
         135 to listOf(2284),
     )
+
+    fun yearRange(start: Int, end: Int): List<Int> {
+        var years = mutableListOf<Int>()
+        for (i in start..end) {
+            years.add(i)
+        }
+        return years
+    }
 }

@@ -15,10 +15,12 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    val years = StartUp.years
     val makes = StartUp.makes
     var makeNames = makes.map { it.makeName }
     var modelsNameIdMap = mutableMapOf<String, Int>()
     var currentModelsList = mutableListOf<String>()
+    var selectedYear = 0
     var selectedMakeId = 0
     var selectedModelId = 0
 
@@ -33,45 +35,32 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "onCreate: makes size = ${makes.size}")
         Log.i(TAG, "MAKE56 ${makes.first{it.makeID == 56}.makeName}")
 
-//        val listParent = mutableListOf<String>(
-//            "Honda",
-//            "Nissan",
-//            "Toyota",
-//        )
+        // set spinners to their list adapters
+        binding.spYear.adapter = ArrayAdapter(this, R.layout.textview_green, years)
+        binding.spMake.adapter = ArrayAdapter(this, R.layout.textview_blue, makeNames)
+        binding.spModel.adapter = ArrayAdapter(this, R.layout.textview_red, currentModelsList)
 
-        val listParent = makes.map { it.makeName }
+        // set spinners to 2000 Toyota Avalon
+        binding.spYear.setSelection(years.indexOf(2000))
+        binding.spMake.setSelection(makeNames.indexOf("TOYOTA"))
 
-//        val listParent = mutableListOf<String>(
-//            "Animals",
-//            "Birds",
-//            "Flowers"
-//        )
-        val arrayAdapterParent = ArrayAdapter(
-            this, R.layout.textview_blue, makeNames
-        )
-        binding.spParent.adapter = arrayAdapterParent
+        binding.spYear.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedYear = years[position]
+            }
 
-//        val listChildAnimals = arrayListOf<String>(
-//            "Tiger",
-//            "Lion",
-//            "Elephant",
-//            "Monkey",
-//            "Cow",
-//            "Go!"
-//        )
-//        val listChildFlowers = arrayListOf<String>(
-//            "Rose",
-//            "Lotus"
-//        )
-//        val listChildBirds = arrayListOf<String>(
-//            "Sparrow", "Eagle", "Peacock"
-//        )
-//
-//        val childLists = listOf<List<String>>(listChildAnimals, listChildBirds, listChildFlowers)
-        val arrayAdapterChild = ArrayAdapter(this, R.layout.textview_red, currentModelsList)
-        binding.spChild.adapter = arrayAdapterChild
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
 
-        binding.spParent.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+
+        binding.spMake.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -80,13 +69,13 @@ class MainActivity : AppCompatActivity() {
             ) {
 
                 Log.i(TAG, "Parent Spinner onItemSelected: fired")
-                Toast.makeText(applicationContext, "MakeID: ${makes[position].makeID}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext, "MakeID: ${makes[position].makeID}", Toast.LENGTH_SHORT).show()
                 selectedMakeId = makes[position].makeID
 
                 if (selectedMakeId == 0) {
                     currentModelsList = mutableListOf<String>("MODEL")
                     val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_red, currentModelsList)
-                    binding.spChild.adapter = adapterChild
+                    binding.spModel.adapter = adapterChild
                     return
                 }
 
@@ -103,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
 
                 val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_red, currentModelsList)
-                binding.spChild.adapter = adapterChild
+                binding.spModel.adapter = adapterChild
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -111,7 +100,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.spChild.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+
+//        binding.spModel.setSelection(currentModelsList.indexOf("AVALON"))
+        binding.spModel.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -121,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG, "Child Spinner onItemSelected: fired")
                 val selectedModelName = currentModelsList[position]
                 selectedModelId = modelsNameIdMap[selectedModelName] ?: 0
-                Toast.makeText(applicationContext, "ModelId: $selectedModelId", Toast.LENGTH_LONG).show()
+//                Toast.makeText(applicationContext, "ModelId: $selectedModelId", Toast.LENGTH_LONG).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -140,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(applicationContext, listParent[position], Toast.LENGTH_LONG).show()
 //
 //                val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_red, childLists[position])
-//                binding.spChild.adapter = adapterChild
+//                binding.spModel.adapter = adapterChild
 //            }
 //
 //            override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -148,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-//        binding.spChild.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+//        binding.spModel.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
 //            override fun onItemSelected(
 //                parent: AdapterView<*>?,
 //                view: View?,
@@ -170,9 +161,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        }
 
-        binding.button.setOnClickListener {
+        binding.btnSearch.setOnClickListener {
             Log.i(TAG, "API Button clicked!")
+            val text = "year: $selectedYear, makeId: $selectedMakeId, modelId: $selectedModelId"
             Log.i(TAG, "makeId: $selectedMakeId, modelId: $selectedModelId")
+
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
 //            println("")
 //            viewModel.getMakes()
         }
