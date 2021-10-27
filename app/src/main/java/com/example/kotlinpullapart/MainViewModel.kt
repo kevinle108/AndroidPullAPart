@@ -122,8 +122,13 @@ class MainViewModel: ViewModel() {
 
 
 
-    fun searchCar(year: String, make: Int, model: String) {
-        viewModelScope.launch {
+    fun searchCar(
+        year: String,
+        make: Int,
+        model: String
+    ): String {
+        var searchResultString = ""
+        runBlocking {
             val search = Search(
                 listOf("8"),
                 listOf(model),
@@ -140,6 +145,7 @@ class MainViewModel: ViewModel() {
                 val searchResult: SearchResult = response.body()!![0]
                 Log.i(TAG, "searchResult location id: ${searchResult.locationID}")
                 Log.i(TAG, "searchResult exact: ${searchResult.exact.size}")
+                searchResultString = searchResult.toString()
             } else {
                 Log.i(TAG, "Failed request")
                 Log.i(TAG, "Code: ${response.code()}")
@@ -149,5 +155,6 @@ class MainViewModel: ViewModel() {
                 Log.i(TAG, "Headers: ${response.headers()}")
             }
         }
+        return searchResultString
     }
 }

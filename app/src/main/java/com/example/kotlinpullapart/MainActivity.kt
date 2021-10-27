@@ -1,5 +1,6 @@
 package com.example.kotlinpullapart
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -171,13 +172,22 @@ class MainActivity : AppCompatActivity() {
 
             // check for valid search String, String, Int, String
             if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
+                var stringResult = ""
                 runBlocking {
                     val year = selectedYear.toString()
                     val make = selectedMakeId
                     val model = selectedModelId.toString()
-                    viewModel.searchCar(year, make, model)
+                    stringResult = viewModel.searchCar(year, make, model)
+                }
+                Intent(this, SecondActivity::class.java).also {
+                    it.putExtra("EXTRA_RESULT", stringResult)
+                    startActivity(it)
                 }
             }
+
+
+
+
 
 
 //            println("")
