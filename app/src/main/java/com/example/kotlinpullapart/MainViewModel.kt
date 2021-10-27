@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlinpullapart.api.RetrofitInstance
-import com.example.kotlinpullapart.models.CarMake
-import com.example.kotlinpullapart.models.CarModel
-import com.example.kotlinpullapart.models.Search
-import com.example.kotlinpullapart.models.SearchResult
+import com.example.kotlinpullapart.models.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -126,8 +123,8 @@ class MainViewModel: ViewModel() {
         year: String,
         make: Int,
         model: String
-    ): String {
-        var searchResultString = ""
+    ): List<LotItem> {
+        var lotLocations = listOf<LotItem>()
         runBlocking {
             val search = Search(
                 listOf("8"),
@@ -145,7 +142,7 @@ class MainViewModel: ViewModel() {
                 val searchResult: SearchResult = response.body()!![0]
                 Log.i(TAG, "searchResult location id: ${searchResult.locationID}")
                 Log.i(TAG, "searchResult exact: ${searchResult.exact.size}")
-                searchResultString = searchResult.toString()
+                lotLocations = searchResult.exact
             } else {
                 Log.i(TAG, "Failed request")
                 Log.i(TAG, "Code: ${response.code()}")
@@ -155,6 +152,6 @@ class MainViewModel: ViewModel() {
                 Log.i(TAG, "Headers: ${response.headers()}")
             }
         }
-        return searchResultString
+        return lotLocations
     }
 }

@@ -1,5 +1,7 @@
 package com.example.kotlinpullapart.models
 
+import java.io.Serializable
+
 data class LotItem(
     val row: Int,
     val locID: Int,
@@ -10,7 +12,7 @@ data class LotItem(
     val modelName: String,
     val dateYardOn: String,
     val vin: String,
-)
+) : Serializable
 
 //{
 //    "vinID": 1299691,

@@ -11,7 +11,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinpullapart.data.StartUp
 import com.example.kotlinpullapart.databinding.ActivityMainBinding
+import com.example.kotlinpullapart.models.LotItem
+import com.example.kotlinpullapart.models.LotLocation
 import kotlinx.coroutines.runBlocking
+import java.io.Serializable
 
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
@@ -172,15 +175,16 @@ class MainActivity : AppCompatActivity() {
 
             // check for valid search String, String, Int, String
             if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
-                var stringResult = ""
+                var searchResult = listOf<LotItem>()
                 runBlocking {
                     val year = selectedYear.toString()
                     val make = selectedMakeId
                     val model = selectedModelId.toString()
-                    stringResult = viewModel.searchCar(year, make, model)
+                    searchResult = viewModel.searchCar(year, make, model)
                 }
                 Intent(this, SecondActivity::class.java).also {
-                    it.putExtra("EXTRA_RESULT", stringResult)
+//                    it.putExtra("EXTRA_RESULT", searchResult)
+                    it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
                     startActivity(it)
                 }
             }
