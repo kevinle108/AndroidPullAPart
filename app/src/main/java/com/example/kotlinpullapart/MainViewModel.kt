@@ -122,39 +122,14 @@ class MainViewModel: ViewModel() {
 
 
 
-    fun searchCar() {
-        // sample data required for car search: {"Locations":["8"],"Models":["861"],"MakeID":56,"Years":[]}
-//        const makeName = carMakeSelect[carMakeSelect.selectedIndex].text;
-//        const modelName = carModelSelect[carModelSelect.selectedIndex].text;
-//        let _data = {
-//            Locations: [locationID],
-//            Models: [carModelSelect.value],
-//            MakeID: carMakeSelect.value,
-//            Years: [carYearSelect.value],
-//        };
-//        fetch(searchURL, {
-//            method: "POST",
-//            headers: { "Content-Type": "application/json; charset=UTF-8" },
-//            body: JSON.stringify(_data),
-//        })
-
-
+    fun searchCar(year: String, make: Int, model: String) {
         viewModelScope.launch {
-//            val body = Search(listOf(8), listOf(861), 56, listOf(2000))
             val search = Search(
                 listOf("8"),
-                listOf("861"),
-                56,
-                listOf("2000")
+                listOf(model),
+                make,
+                listOf(year)
             )
-
-
-//            val body = JSONObject()
-//            jsonBody.put("location", listOf(8))
-//            jsonBody.put("models", 56)
-//            jsonBody.put("makeID", listOf(8))
-//            jsonBody.put("years", listOf(2000))
-
 //            val body = "{Locations: [8], MakeID: 56, Years: [2000], Models: [861]}"
             Log.i(TAG, "request body: ${search}")
             val response = RetrofitInstance.api.vehicleSearch(search)
@@ -162,11 +137,9 @@ class MainViewModel: ViewModel() {
                 Log.i(TAG, "Response: $response")
                 Log.i(TAG, "Code: ${response.code()}")
                 Log.i(TAG, "Body: ${response.body()}")
-                Log.i(TAG, "Message: ${response.message()}")
-                Log.i(TAG, "ErrorBody: ${response.errorBody()}")
-                Log.i(TAG, "Headers: ${response.headers()}")
                 val searchResult: SearchResult = response.body()!![0]
-                Log.i(TAG, "response location id: ${searchResult.locationID}")
+                Log.i(TAG, "searchResult location id: ${searchResult.locationID}")
+                Log.i(TAG, "searchResult exact: ${searchResult.exact.size}")
             } else {
                 Log.i(TAG, "Failed request")
                 Log.i(TAG, "Code: ${response.code()}")
@@ -174,61 +147,7 @@ class MainViewModel: ViewModel() {
                 Log.i(TAG, "Message: ${response.message()}")
                 Log.i(TAG, "ErrorBody: ${response.errorBody()}")
                 Log.i(TAG, "Headers: ${response.headers()}")
-
             }
         }
-
-
-
-
     }
 }
-
-//fun rawJSON() {
-//
-//    // Create Retrofit
-//    val retrofit = Retrofit.Builder()
-//        .baseUrl("http://dummy.restapiexample.com")
-//        .build()
-//
-//    // Create Service
-//    val service = retrofit.create(APIService::class.java)
-//
-//    // Create JSON using JSONObject
-//    val jsonObject = JSONObject()
-//    jsonObject.put("name", "Jack")
-//    jsonObject.put("salary", "3540")
-//    jsonObject.put("age", "23")
-//
-//    // Convert JSONObject to String
-//    val jsonObjectString = jsonObject.toString()
-//
-//    // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
-//    val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-//
-//    CoroutineScope(Dispatchers.IO).launch {
-//        // Do the POST request and get response
-//        val response = service.createEmployee(requestBody)
-//
-//        withContext(Dispatchers.Main) {
-//            if (response.isSuccessful) {
-//
-//                // Convert raw JSON to pretty JSON using GSON library
-//                val gson = GsonBuilder().setPrettyPrinting().create()
-//                val prettyJson = gson.toJson(
-//                    JsonParser.parseString(
-//                        response.body()
-//                            ?.string() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
-//                    )
-//                )
-//
-//                Log.d("Pretty Printed JSON :", prettyJson)
-//
-//            } else {
-//
-//                Log.e("RETROFIT_ERROR", response.code().toString())
-//
-//            }
-//        }
-//    }
-//}

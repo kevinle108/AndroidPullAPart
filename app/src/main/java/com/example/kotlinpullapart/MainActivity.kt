@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinpullapart.data.StartUp
 import com.example.kotlinpullapart.databinding.ActivityMainBinding
+import kotlinx.coroutines.runBlocking
 
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
@@ -167,6 +168,18 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "makeId: $selectedMakeId, modelId: $selectedModelId")
 
             Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
+
+            // check for valid search String, String, Int, String
+            if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
+                runBlocking {
+                    val year = selectedYear.toString()
+                    val make = selectedMakeId
+                    val model = selectedModelId.toString()
+                    viewModel.searchCar(year, make, model)
+                }
+            }
+
+
 //            println("")
 //            viewModel.getMakes()
         }
