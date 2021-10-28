@@ -1,26 +1,59 @@
 <resources>
     <string name="app_name">KotlinPullAPart</string>
-    <string-array name="years">
-        <item>Year</item>
-        <item>2000</item>
-        <item>2001</item>
-        <item>2002</item>
-        <item>2003</item>
-        <item>2004</item>
-        <item>2005</item>
-    </string-array>
     <string-array name="makes">
-        <item>Make</item>
-        <item>Toyota</item>
-        <item>Honda</item>
-        <item>Nissan</item>
+        <item>ACURA</item>
+        <item>AMC</item>
+        <item>AUDI</item>
+        <item>BMW</item>
+        <item>BUICK</item>
+        <item>CADILLAC</item>
+        <item>CHEVROLET</item>
+        <item>CHRYSLER</item>
+        <item>DAEWOO</item>
+        <item>DAIHATSU</item>
+        <item>DATSUN</item>
+        <item>DODGE</item>
+        <item>EAGLE</item>
+        <item>FIAT</item>
+        <item>FORD</item>
+        <item>GENESIS</item>
+        <item>GEO</item>
+        <item>GMC</item>
+        <item>HONDA</item>
+        <item>HYUNDAI</item>
+        <item>INFINITI</item>
+        <item>ISUZU</item>
+        <item>JAGUAR</item>
+        <item>JEEP</item>
+        <item>KIA</item>
+        <item>LAND ROVER</item>
+        <item>LEXUS</item>
+        <item>LINCOLN</item>
+        <item>LUCID</item>
+        <item>MAZDA</item>
+        <item>MERCEDES-BENZ</item>
+        <item>MERCURY</item>
+        <item>MINI</item>
+        <item>MITSUBISHI</item>
+        <item>NISSAN</item>
+        <item>OLDSMOBILE</item>
+        <item>PLYMOUTH</item>
+        <item>PONTIAC</item>
+        <item>PORSCHE</item>
+        <item>RAM</item>
+        <item>RIVIAN</item>
+        <item>SAAB</item>
+        <item>SATURN</item>
+        <item>SCION</item>
+        <item>SMART</item>
+        <item>SUBARU</item>
+        <item>SUZUKI</item>
+        <item>TOYOTA</item>
+        <item>VOLVO</item>
+        <item>VW</item>
+        <item>WAGONEER</item>
     </string-array>
-    <string-array name="models">
-        <item>Model</item>
-        <item>Camry</item>
-        <item>Odyssey</item>
-        <item>Rogue</item>
-    </string-array>
+
     <string name="title_activity_list_table">ListTable</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
