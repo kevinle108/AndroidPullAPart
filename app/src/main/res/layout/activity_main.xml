@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:text="Year"
-        android:textColor="@color/black"
+        android:textColor = "?android:textColorSecondary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Make"
-        android:textColor="@color/black"
+        android:textColor = "?android:textColorSecondary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Model"
-        android:textColor="@color/black"
+        android:textColor = "?android:textColorSecondary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvModel"
-        android:spinnerMode="dialog"/>
+        android:spinnerMode="dialog" />
 
 
     <ImageButton

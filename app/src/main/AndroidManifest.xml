@@ -18,11 +18,6 @@
             android:name=".SecondActivity"
             android:exported="true" />
         <activity
-            android:name=".ListTable"
-            android:exported="true"
-            android:label="@string/title_activity_list_table"
-            android:theme="@style/Theme.KotlinPullAPart.NoActionBar" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

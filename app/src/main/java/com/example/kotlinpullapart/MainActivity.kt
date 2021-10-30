@@ -101,8 +101,8 @@ class MainActivity : AppCompatActivity() {
         // set spinners to their list adapters
         val makeNames = makes.map { it.makeName }
         binding.spYear.adapter = ArrayAdapter(this, R.layout.textview_green, years)
-        binding.spMake.adapter = ArrayAdapter(this, R.layout.textview_blue, makeNames)
-        binding.spModel.adapter = ArrayAdapter(this, R.layout.textview_red, currentModelsList)
+        binding.spMake.adapter = ArrayAdapter(this, R.layout.textview_green, makeNames)
+        binding.spModel.adapter = ArrayAdapter(this, R.layout.textview_green, currentModelsList)
 
         // set spinners to 2000 Toyota Avalon
         binding.spYear.setSelection(years.indexOf(INITIAL_YEAR))
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (selectedMakeId == 0) {
                     currentModelsList = mutableListOf<String>("MODEL")
-                    val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_red, currentModelsList)
+                    val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_green, currentModelsList)
                     binding.spModel.adapter = adapterChild
                     return
                 }
@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(applicationContext, id.toString(), Toast.LENGTH_LONG).show()
 
 
-                val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_red, currentModelsList)
+                val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_green, currentModelsList)
                 binding.spModel.adapter = adapterChild
             }
 
@@ -185,45 +185,7 @@ class MainActivity : AppCompatActivity() {
 
 
         }
-//        binding.spParent.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                Toast.makeText(applicationContext, listParent[position], Toast.LENGTH_LONG).show()
-//
-//                val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_red, childLists[position])
-//                binding.spModel.adapter = adapterChild
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//        }
 
-//        binding.spModel.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                if (listChildAnimals[position] == "Go!") {
-//                    val activityIntent = Intent(this@MainActivity, ListTable::class.java)
-//                    activityIntent.putExtra("TestConstant", 42)
-//                    startActivity(activityIntent)
-//                }
-//
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//
-//
-//        }
 
         binding.ibtnSearch.setOnClickListener {
 //            addContactDialog.show()
