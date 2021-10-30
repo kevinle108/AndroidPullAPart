@@ -16,6 +16,7 @@
             android:layout_marginStart="10dp"
             android:text="342"
             android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tvDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,9 +34,8 @@
             android:id="@+id/tvCarTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="12dp"
             android:text="2000 TOYOTA AVALON"
-            android:textAlignment="gravity"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvRow"
             app:layout_constraintEnd_toEndOf="parent"

@@ -21,6 +21,7 @@ private const val INITIAL_YEAR = 2000
 private const val INITIAL_MAKE = "TOYOTA"
 class MainActivity : AppCompatActivity() {
 
+
     private lateinit var viewModel: MainViewModel
     val years = StartUp.years
     val makes = StartUp.makes.sortedBy { it.makeName }
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     var selectedYear = 0
     var selectedMakeId = 0
     var selectedModelId = 0
-
+    var beforeSelection = true
 
 
 
@@ -176,6 +177,10 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
+                if (beforeSelection) {
+                    binding.spModel.setSelection(currentModelsList.indexOf("AVALON"))
+                    beforeSelection = false
+                }
                 Log.i(TAG, "Child Spinner onItemSelected: fired")
                 val selectedModelName = currentModelsList[position]
                 selectedModelId = modelsNameIdMap[selectedModelName] ?: 0
