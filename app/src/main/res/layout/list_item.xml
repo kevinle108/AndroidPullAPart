@@ -1,56 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="80dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvRowNumber"
-            android:layout_width="0dp"
+            android:id="@+id/tvRow"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="10dp"
+            android:text="342"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvLotCarTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="2000 Toyota Avalon"
-            android:textSize="15dp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toStartOf="@+id/cbLotVisited"
-            app:layout_constraintStart_toEndOf="@+id/tvRowNumber"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/cbLotVisited"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="10/29/21"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/tvRow"
+            app:layout_constraintTop_toBottomOf="@+id/tvRow" />
 
         <TextView
-            android:id="@+id/tvDateOnYard"
+            android:id="@+id/tvCarTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="10/29/21"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cbLotVisited"
-            app:layout_constraintStart_toEndOf="@+id/tvRowNumber"
-            app:layout_constraintTop_toBottomOf="@+id/tvLotCarTitle" />
-
+            android:text="2000 TOYOTA AVALON"
+            android:textAlignment="gravity"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvRow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDate"
+            app:layout_constraintTop_toTopOf="@+id/tvRow" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

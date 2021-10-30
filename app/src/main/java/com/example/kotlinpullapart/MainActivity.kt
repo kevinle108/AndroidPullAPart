@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
         // set spinners to their list adapters
         val makeNames = makes.map { it.makeName }
-        binding.spYear. adapter = ArrayAdapter(this, R.layout.textview_green, years)
+        binding.spYear.adapter = ArrayAdapter(this, R.layout.textview_green, years)
         binding.spMake.adapter = ArrayAdapter(this, R.layout.textview_blue, makeNames)
         binding.spModel.adapter = ArrayAdapter(this, R.layout.textview_red, currentModelsList)
 
@@ -225,8 +225,7 @@ class MainActivity : AppCompatActivity() {
 //
 //        }
 
-        binding.btnSearch.setOnClickListener {
-
+        binding.ibtnSearch.setOnClickListener {
 //            addContactDialog.show()
 //            singleChoiceDialog.show()
 //            multiChoiceDialog.show()

@@ -23,9 +23,9 @@ class ListAdapter(
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.binding.apply {
             val currentItem = locations[position]
-            tvRowNumber.text = currentItem.row.toString()
-            tvLotCarTitle.text = "${currentItem.modelYear} ${currentItem.makeName} ${currentItem.modelName}"
-            tvDateOnYard.text = parseDateString(currentItem.dateYardOn)
+            tvRow.text = currentItem.row.toString()
+            tvCarTitle.text = "${currentItem.modelYear} ${currentItem.makeName} ${currentItem.modelName}"
+            tvDate.text = parseDateString(currentItem.dateYardOn)
         }
     }
 
@@ -33,10 +33,12 @@ class ListAdapter(
         return locations.size
     }
 
+
+
     fun parseDateString(str: String) : String {
-        val year = str.substring(0,4)
+        val year = str.substring(2,4)
         val month = str.substring(5,7)
         val day = str.substring(8,10)
-        return "$month/$day$year"
+        return "$month/$day/$year"
     }
 }
