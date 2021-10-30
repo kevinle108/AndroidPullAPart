@@ -8,18 +8,13 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinpullapart.data.StartUp
 import com.example.kotlinpullapart.databinding.ActivityMainBinding
 import com.example.kotlinpullapart.models.LotItem
 import com.example.kotlinpullapart.models.LotLocation
 import kotlinx.coroutines.runBlocking
-import android.Manifest
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.pm.PackageManager
-import android.widget.ImageView
 
 private const val TAG = "MainActivity"
 private const val INITIAL_YEAR = 2000
@@ -108,9 +103,9 @@ class MainActivity : AppCompatActivity() {
 
         // set spinners to their list adapters
         val makeNames = makes.map { it.makeName }
-        binding.spYear.adapter = ArrayAdapter(this, R.layout.textview_green, years)
-        binding.spMake.adapter = ArrayAdapter(this, R.layout.textview_green, makeNames)
-        binding.spModel.adapter = ArrayAdapter(this, R.layout.textview_green, currentModelsList)
+        binding.spYear.adapter = ArrayAdapter(this, R.layout.spinner_item, years)
+        binding.spMake.adapter = ArrayAdapter(this, R.layout.spinner_item, makeNames)
+        binding.spModel.adapter = ArrayAdapter(this, R.layout.spinner_item, currentModelsList)
 
         // set spinners to 2000 Toyota Avalon
         binding.spYear.setSelection(years.indexOf(INITIAL_YEAR))
@@ -146,7 +141,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (selectedMakeId == 0) {
                     currentModelsList = mutableListOf<String>("MODEL")
-                    val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_green, currentModelsList)
+                    val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, currentModelsList)
                     binding.spModel.adapter = adapterChild
                     return
                 }
@@ -163,7 +158,7 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(applicationContext, id.toString(), Toast.LENGTH_LONG).show()
 
 
-                val adapterChild = ArrayAdapter(applicationContext, R.layout.textview_green, currentModelsList)
+                val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, currentModelsList)
                 binding.spModel.adapter = adapterChild
             }
 
