@@ -10,6 +10,7 @@ data class LotItem(
     val makeName: String,
     val modelID: Int,
     val modelName: String,
+    val modelYear: Int,
     val dateYardOn: String,
     val vin: String,
 ) : Serializable

@@ -3,6 +3,7 @@ package com.example.kotlinpullapart
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinpullapart.databinding.ActivityMainBinding
 import com.example.kotlinpullapart.databinding.ActivitySecondBinding
 import com.example.kotlinpullapart.models.LotItem
@@ -12,6 +13,7 @@ private const val TAG = "SecondActivity"
 class SecondActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySecondBinding
+    private lateinit var lotList: List<LotItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,16 +23,11 @@ class SecondActivity : AppCompatActivity() {
         val result = intent.getSerializableExtra("EXTRA_RESULT") as LotLocation
         Log.i(TAG, "onCreate: $result")
 
-        val lotList = result.lots
-        var lotsString = ""
-        for (lot in lotList) {
-            lotsString += "Row: ${lot.row}\n\n"
-        }
-        binding.textView.text = lotsString
+        lotList = result.lots
 
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        var adapter = ListAdapter(lotList)
+        binding.rvLocations.adapter = adapter
+        binding.rvLocations.layoutManager = LinearLayoutManager(this)
 
     }
 

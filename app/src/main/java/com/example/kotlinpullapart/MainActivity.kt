@@ -229,66 +229,29 @@ class MainActivity : AppCompatActivity() {
 
 //            addContactDialog.show()
 //            singleChoiceDialog.show()
-            multiChoiceDialog.show()
+//            multiChoiceDialog.show()
 
-//            Log.i(TAG, "API Button clicked!")
-//            val text = "year: $selectedYear, makeId: $selectedMakeId, modelId: $selectedModelId"
-//            Log.i(TAG, "makeId: $selectedMakeId, modelId: $selectedModelId")
-//
+            Log.i(TAG, "API Button clicked!")
+            val text = "year: $selectedYear, makeId: $selectedMakeId, modelId: $selectedModelId"
+            Log.i(TAG, "makeId: $selectedMakeId, modelId: $selectedModelId")
+
 //            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
-//
-//            // check for valid search String, String, Int, String
-//            if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
-//                var searchResult = listOf<LotItem>()
-//                runBlocking {
-//                    val year = selectedYear.toString()
-//                    val make = selectedMakeId
-//                    val model = selectedModelId.toString()
-//                    searchResult = viewModel.searchCar(year, make, model)
-//                }
-//                Intent(this, SecondActivity::class.java).also {
-////                    it.putExtra("EXTRA_RESULT", searchResult)
-//                    it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
-//                    startActivity(it)
-//                }
-//            }
 
-
-
-
-
-
-//            println("")
-//            viewModel.getMakes()
+            // check for valid search String, String, Int, String
+            if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
+                var searchResult = listOf<LotItem>()
+                runBlocking {
+                    val year = selectedYear.toString()
+                    val make = selectedMakeId
+                    val model = selectedModelId.toString()
+                    searchResult = viewModel.searchCar(year, make, model)
+                }
+                Intent(this, SecondActivity::class.java).also {
+//                    it.putExtra("EXTRA_RESULT", searchResult)
+                    it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
+                    startActivity(it)
+                }
+            }
         }
-
-
-
-//        val spinnerYear = findViewById<Spinner>(R.id.spinnerYear)
-//        val spinnerMake = findViewById<Spinner>(R.id.spinnerMake)
-//        val spinnerModel = findViewById<Spinner>(R.id.spinnerModel)
-
-
-
-//        val spinnerCategories = listOf<Int>(
-//            R.array.years,
-//            R.array.makes,
-//            R.array.models
-//        )
-
-//        ArrayAdapter.createFromResource(
-//            this,
-//            R.array.years,
-//            android.R.layout.simple_spinner_item
-//        ).also { adapter ->
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//            spinnerYear.adapter = adapter
-//        }
-
-
-
-
-
-
     }
 }
