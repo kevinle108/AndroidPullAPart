@@ -53,6 +53,14 @@ class MainActivity : AppCompatActivity() {
         }
         println(printMakesText)
 
+        val zeroMatchesDialog = AlertDialog.Builder(this)
+            .setTitle("Sorry!")
+            .setMessage("No matches found for this car!")
+            .setIcon(R.drawable.ic_sad_face_foreground)
+            .setPositiveButton("OK") { _, _ ->
+            }
+            .create()
+
         val addContactDialog = AlertDialog.Builder(this)
             .setTitle("Add Contact")
             .setMessage("Do you want to add Kevin to your contact list?")
@@ -207,11 +215,17 @@ class MainActivity : AppCompatActivity() {
                     val model = selectedModelId.toString()
                     searchResult = viewModel.searchCar(year, make, model)
                 }
-                Intent(this, SecondActivity::class.java).also {
+                if (searchResult.isEmpty()) {
+//                    zeroMatchesDialog.show()
+                    Toast.makeText(this, "Sorry! No matches for this car.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Intent(this, SecondActivity::class.java).also {
 //                    it.putExtra("EXTRA_RESULT", searchResult)
-                    it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
-                    startActivity(it)
+                        it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
+                        startActivity(it)
+                    }
                 }
+
             }
         }
     }
