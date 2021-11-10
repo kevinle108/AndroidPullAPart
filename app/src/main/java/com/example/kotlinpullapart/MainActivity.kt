@@ -51,8 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         val zeroMatchesDialog = AlertDialog.Builder(this)
             .setTitle("Sorry!")
-            .setMessage("No matches found for this car!")
-            .setIcon(R.drawable.ic_sad_face_foreground)
+            .setMessage("This location does not contain any matches for your vehicle.")
             .setPositiveButton("OK") { _, _ ->
             }
             .create()
@@ -216,8 +215,8 @@ class MainActivity : AppCompatActivity() {
                     searchResult = viewModel.searchCar(year, make, model)
                 }
                 if (searchResult.isEmpty()) {
-//                    zeroMatchesDialog.show()
-                    Toast.makeText(this, "Sorry! No matches for this car.", Toast.LENGTH_SHORT).show()
+                    zeroMatchesDialog.show()
+//                    Toast.makeText(this, "Sorry! No matches for this car.", Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.updateLotResults(searchResult)
                     Intent(this, SecondActivity::class.java).also {
