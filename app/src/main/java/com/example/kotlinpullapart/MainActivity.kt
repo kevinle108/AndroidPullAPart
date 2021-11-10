@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        binding.ibtnSearch.setOnClickListener {
+        binding.btnSearch.setOnClickListener {
 //            addContactDialog.show()
 //            singleChoiceDialog.show()
 //            multiChoiceDialog.show()
@@ -219,14 +219,27 @@ class MainActivity : AppCompatActivity() {
 //                    zeroMatchesDialog.show()
                     Toast.makeText(this, "Sorry! No matches for this car.", Toast.LENGTH_SHORT).show()
                 } else {
+                    viewModel.updateLotResults(searchResult)
                     Intent(this, SecondActivity::class.java).also {
 //                    it.putExtra("EXTRA_RESULT", searchResult)
-                        it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
+//                        it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
+                        it.putExtra("EXTRA_RESULT", LotLocation(viewModel.getLotResults()))
                         startActivity(it)
                     }
                 }
 
             }
         }
+
+        binding.btnLot.setOnClickListener {
+            var lots: List<LotItem> = listOf<LotItem>()
+            Intent(this, SecondActivity::class.java).also {
+//                    it.putExtra("EXTRA_RESULT", searchResult)
+                it.putExtra("EXTRA_RESULT", LotLocation(viewModel.getLotResults()))
+                startActivity(it)
+            }
+        }
+
+
     }
 }
