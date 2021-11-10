@@ -22,13 +22,13 @@
 
     <Spinner
         android:id="@+id/spYear"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvYear"
-        android:spinnerMode="dialog"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvYear" />
 
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Make"
-        android:textColor = "?android:textColorSecondary"
+        android:textColor="?android:textColorSecondary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,10 +49,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMake"
-        android:spinnerMode="dialog"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvMake" />
 
     <TextView
         android:id="@+id/tvModel"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Model"
-        android:textColor = "?android:textColorSecondary"
+        android:textColor="?android:textColorSecondary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -72,14 +72,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvModel"
-        android:spinnerMode="dialog" />
+        app:layout_constraintTop_toBottomOf="@+id/tvModel" />
 
 
     <ImageButton
-        android:id="@+id/ibtnSearch"
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/roundbtn"
@@ -104,7 +104,15 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Lot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <!--    <Spinner-->
