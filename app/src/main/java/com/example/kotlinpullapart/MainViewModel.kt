@@ -33,7 +33,6 @@ class MainViewModel: ViewModel() {
             makes = fetchedPost.filter { !it.rareFind }
             getModels()
         }
-        
     }
 
     fun getModelsFromMakeId(id: Int): List<CarModel> {
