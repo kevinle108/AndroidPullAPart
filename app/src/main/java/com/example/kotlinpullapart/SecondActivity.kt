@@ -19,16 +19,11 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val result = intent.getSerializableExtra("EXTRA_RESULT") as LotLocation
-        Log.i(TAG, "onCreate: $result")
-
         lotList = result.lots
-
         var adapter = ListAdapter(lotList)
         binding.rvLocations.adapter = adapter
         binding.rvLocations.layoutManager = LinearLayoutManager(this)
-
     }
 
 

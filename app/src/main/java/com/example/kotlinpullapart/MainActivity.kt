@@ -33,21 +33,24 @@ class MainActivity : AppCompatActivity() {
     var selectedModelId = 0
     var beforeSelection = true
 
+    fun loadPreviousSelections() {
+        println(viewModel.getSavedSelections())
+    }
 
+    fun searchEntry(): String {
+        val year = selectedYear
+        val make = makes.first { it.makeID == selectedMakeId }.makeName
+        val model = modelsNameIdMap.filter { it.value == selectedModelId }.keys.first()
+        val searchEntry = "$year $make $model"
+        println(searchEntry)
+        return searchEntry
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-
-        val sortedMakes = years.sorted()
-        var printMakesText = ""
-        for (make in sortedMakes) {
-            printMakesText += "<item>$make</item> "
-        }
-        println(printMakesText)
 
         val zeroMatchesDialog = AlertDialog.Builder(this)
             .setTitle("Sorry!")
@@ -98,9 +101,6 @@ class MainActivity : AppCompatActivity() {
             }
             .create()
 
-        Log.i(TAG, "onCreate: makes size = ${makes.size}")
-        Log.i(TAG, "MAKE56 ${makes.first{it.makeID == 56}.makeName}")
-
         // set spinners to their list adapters
         val makeNames = makes.map { it.makeName }
         binding.spYear.adapter = ArrayAdapter(this, R.layout.spinner_item, years)
@@ -112,101 +112,67 @@ class MainActivity : AppCompatActivity() {
         binding.spMake.setSelection(makes.indexOfFirst { it.makeName == INITIAL_MAKE })
 
         binding.spYear.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 selectedYear = years[position]
+                viewModel.setSavedYear(selectedYear)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-
         binding.spMake.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-
-                Log.i(TAG, "Parent Spinner onItemSelected: fired")
-//                Toast.makeText(applicationContext, "MakeID: ${makes[position].makeID}", Toast.LENGTH_SHORT).show()
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedMakeId = makes[position].makeID
-
+                viewModel.setSavedMakeID(selectedMakeId)
                 if (selectedMakeId == 0) {
                     currentModelsList = mutableListOf<String>("MODEL")
                     val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, currentModelsList)
                     binding.spModel.adapter = adapterChild
                     return
                 }
-
                 val models = viewModel.getModelsFromMakeId(selectedMakeId)
                 val modelsNames = models.map { it.modelName }
                 currentModelsList = modelsNames.sorted().toMutableList()
-
                 for (model in models) {
                     if (modelsNameIdMap[model.modelName] == null) {
                         modelsNameIdMap.put(model.modelName, model.modelID)
                     }
                 }
-//                Toast.makeText(applicationContext, id.toString(), Toast.LENGTH_LONG).show()
-
-
                 val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, currentModelsList)
                 binding.spModel.adapter = adapterChild
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                Log.i(TAG, "Parent Spinner onNothingSelected: fired")
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
 
-//        binding.spModel.setSelection(currentModelsList.indexOf("AVALON"))
         binding.spModel.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (beforeSelection) {
                     binding.spModel.setSelection(currentModelsList.indexOf("AVALON"))
                     beforeSelection = false
                 }
-                Log.i(TAG, "Child Spinner onItemSelected: fired")
                 val selectedModelName = currentModelsList[position]
+                viewModel.setSavedModelID(selectedModelId)
                 selectedModelId = modelsNameIdMap[selectedModelName] ?: 0
-//                Toast.makeText(applicationContext, "ModelId: $selectedModelId", Toast.LENGTH_LONG).show()
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                Log.i(TAG, "Child Spinner onNothingSelected: fired")
-            }
-
-
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-
 
         binding.btnSearch.setOnClickListener {
 //            addContactDialog.show()
 //            singleChoiceDialog.show()
 //            multiChoiceDialog.show()
 
-            Log.i(TAG, "API Button clicked!")
-            val text = "year: $selectedYear, makeId: $selectedMakeId, modelId: $selectedModelId"
-            Log.i(TAG, "makeId: $selectedMakeId, modelId: $selectedModelId")
-
 //            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
 
             // check for valid search String, String, Int, String
             if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
+                if(viewModel.isDuplicateSearch(searchEntry())) {
+                    goToResultsScreen()
+                    return@setOnClickListener
+                }
                 var searchResult = listOf<LotItem>()
                 runBlocking {
                     val year = selectedYear.toString()
@@ -219,12 +185,7 @@ class MainActivity : AppCompatActivity() {
 //                    Toast.makeText(this, "Sorry! No matches for this car.", Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.updateLotResults(searchResult)
-                    Intent(this, SecondActivity::class.java).also {
-//                    it.putExtra("EXTRA_RESULT", searchResult)
-//                        it.putExtra("EXTRA_RESULT", LotLocation(searchResult))
-                        it.putExtra("EXTRA_RESULT", LotLocation(viewModel.getLotResults()))
-                        startActivity(it)
-                    }
+                    goToResultsScreen()
                 }
 
             }
@@ -232,13 +193,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnLot.setOnClickListener {
             var lots: List<LotItem> = listOf<LotItem>()
-            Intent(this, SecondActivity::class.java).also {
-//                    it.putExtra("EXTRA_RESULT", searchResult)
-                it.putExtra("EXTRA_RESULT", LotLocation(viewModel.getLotResults()))
-                startActivity(it)
-            }
+            goToResultsScreen()
         }
+    }
 
-
+    fun goToResultsScreen() {
+        Intent(this, SecondActivity::class.java).also {
+            it.putExtra("EXTRA_RESULT", LotLocation(viewModel.getLotResults()))
+            startActivity(it)
+        }
     }
 }

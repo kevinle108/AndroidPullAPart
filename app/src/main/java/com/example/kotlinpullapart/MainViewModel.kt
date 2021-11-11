@@ -16,9 +16,31 @@ class MainViewModel: ViewModel() {
     private var makes = listOf<CarMake>()
     private var makeToModelsMap = mutableMapOf<Int, List<CarModel>>()
     private var lotResults = listOf<LotItem>()
+    private var savedYear = 0
+    private var savedMakeID = 0
+    private var savedModelID = 0
+    private var searchEntries = mutableListOf<String>()
+
+    fun setSavedYear(value: Int) { savedYear = value }
+    fun setSavedMakeID(value: Int) { savedMakeID = value }
+    fun setSavedModelID(value: Int) { savedModelID = value }
+
+    fun getSavedSelections(): List<Int> {
+        return listOf<Int>(savedYear, savedMakeID, savedModelID)
+    }
 
     fun getLotResults(): List<LotItem> {
         return lotResults
+    }
+
+    fun isDuplicateSearch(entry: String): Boolean {
+        if (searchEntries.contains(entry)) {
+            return true
+        }
+        else {
+            searchEntries.add(entry)
+            return false
+        }
     }
 
     fun updateLotResults(newResults: List<LotItem>): List<LotItem> {
@@ -39,9 +61,7 @@ class MainViewModel: ViewModel() {
         var carModels = listOf<CarModel>()
         runBlocking {
             val response = RetrofitInstance.api.getModelsFromMakeId(id)
-            println(response)
             carModels = response
-            Log.i(TAG, "getModelsFromMakeId: ${carModels}")
         }
         return carModels
     }
@@ -74,15 +94,10 @@ class MainViewModel: ViewModel() {
                 listOf(year)
             )
 //            val body = "{Locations: [8], MakeID: 56, Years: [2000], Models: [861]}"
-            Log.i(TAG, "request body: ${search}")
             val response = RetrofitInstance.api.vehicleSearch(search)
             if (response.isSuccessful) {
-                Log.i(TAG, "Response: $response")
-                Log.i(TAG, "Code: ${response.code()}")
-                Log.i(TAG, "Body: ${response.body()}")
                 val searchResult: SearchResult = response.body()!![0]
-                Log.i(TAG, "searchResult location id: ${searchResult.locationID}")
-                Log.i(TAG, "searchResult exact: ${searchResult.exact.size}")
+
                 lotLocations = searchResult.exact
             } else {
                 Log.i(TAG, "Failed request")
