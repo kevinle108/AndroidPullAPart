@@ -1,9 +1,11 @@
 package com.example.kotlinpullapart
 
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlinpullapart.api.RetrofitInstance
+import com.example.kotlinpullapart.data.StartUp
 import com.example.kotlinpullapart.models.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -13,17 +15,29 @@ import org.json.JSONObject
 private const val TAG = "MainViewModel"
 class MainViewModel: ViewModel() {
 
-    private var makes = listOf<CarMake>()
+
+
+    val years = StartUp.years
+    val makes = StartUp.makes.sortedBy { it.makeName }
     private var makeToModelsMap = mutableMapOf<Int, List<CarModel>>()
+    private var modelsNameIdMap = mutableMapOf<String, Int>()
+
     private var lotResults = listOf<LotItem>()
     private var searchesToItemsMap = mutableMapOf<String, Int>()
+
     private var beforeSelection = true
+    private var selectedYear = 0
+    private var selectedMakeId = 0
+    private var selectedModelId = 0
 
-    fun getLotResults(): List<LotItem> { return lotResults }
+    private var currentModelsList = mutableListOf<String>()
 
-    fun getBeforeSelection(): Boolean { return beforeSelection }
 
-    fun setBeforeSelection(value: Boolean) { beforeSelection = value }
+    fun getLotResults(): List<LotItem> = lotResults
+
+    fun getBeforeSelection(): Boolean = beforeSelection
+
+    fun setBeforeSelection(value: Boolean) = { beforeSelection = value }
 
     fun updateLotResults(newResults: List<LotItem>): List<LotItem> {
         lotResults = lotResults + newResults
@@ -31,17 +45,52 @@ class MainViewModel: ViewModel() {
         return lotResults
     }
 
+    fun getSelectedYear(): Int = selectedYear
+//    fun getSelectedMakeId(): Int = selectedMakeId
+//    fun getSelectedModelId(): Int = selectedModelId
+    fun getCurrentModelsList(): List<String> = currentModelsList
+    fun currentSearchEntry(): String {
+        val year: String = selectedYear.toString()
+        val make: String = makes.first{ it.makeID == selectedMakeId }.makeName
+        val model: String = modelsNameIdMap.filterValues { it == selectedMakeId }.keys.first()
+        return "$year $make $model"
+    }
+
+
     fun isDuplicateSearch(searchEntry: String): Boolean {
         return searchesToItemsMap.containsKey(searchEntry)
     }
 
-    fun getMakes() {
-        viewModelScope.launch{
-            val fetchedPost = RetrofitInstance.api.getMakes()
-            makes = fetchedPost.filter { !it.rareFind }
-            getModels()
-        }
+    fun yearSelectionHandler(position: Int) {
+        selectedYear = years[position]
     }
+
+    fun makeSelectionHandler(position: Int) : List<String> {
+        selectedMakeId = makes[position].makeID
+        val models: List<CarModel> = getModelsFromMakeId(selectedMakeId)
+        println(models)
+        val modelNames: List<String> = models.map { it.modelName }
+        currentModelsList = modelNames.sorted().toMutableList()
+        for (model in models) {
+            if (modelsNameIdMap[model.modelName] == null) {
+                modelsNameIdMap.put(model.modelName, model.modelID)
+            }
+        }
+        return currentModelsList
+    }
+
+    fun modelSelectionHandler(position: Int) {
+        val selectedModelName = currentModelsList[position]
+        selectedModelId = modelsNameIdMap[selectedModelName] ?: 0
+    }
+
+//    fun getMakes() {
+//        viewModelScope.launch{
+//            val fetchedPost = RetrofitInstance.api.getMakes()
+//            makes = fetchedPost.filter { !it.rareFind }
+//            getModels()
+//        }
+//    }
 
     fun getModelsFromMakeId(id: Int): List<CarModel> {
         var carModels = listOf<CarModel>()
@@ -63,7 +112,6 @@ class MainViewModel: ViewModel() {
             }
         }
     }
-
 
 
     fun searchCar(

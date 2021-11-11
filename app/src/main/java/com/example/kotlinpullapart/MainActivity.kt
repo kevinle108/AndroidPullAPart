@@ -3,13 +3,11 @@ package com.example.kotlinpullapart
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.example.kotlinpullapart.data.StartUp
 import com.example.kotlinpullapart.databinding.ActivityMainBinding
 import com.example.kotlinpullapart.models.LotItem
 import com.example.kotlinpullapart.models.LotLocation
@@ -22,13 +20,6 @@ private const val INITIAL_MAKE = "TOYOTA"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
-    val years = StartUp.years
-    val makes = StartUp.makes.sortedBy { it.makeName }
-    var modelsNameIdMap = mutableMapOf<String, Int>()
-    var currentModelsList = mutableListOf<String>()
-    var selectedYear = 0
-    var selectedMakeId = 0
-    var selectedModelId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,84 +36,47 @@ class MainActivity : AppCompatActivity() {
             .create()
 
         // set spinners to their list adapters
-        val makeNames = makes.map { it.makeName }
-        binding.spYear.adapter = ArrayAdapter(this, R.layout.spinner_item, years)
-        binding.spMake.adapter = ArrayAdapter(this, R.layout.spinner_item, makeNames)
-        binding.spModel.adapter = ArrayAdapter(this, R.layout.spinner_item, currentModelsList)
+        binding.spYear.adapter = ArrayAdapter(this, R.layout.spinner_item, viewModel.years)
+        binding.spMake.adapter = ArrayAdapter(this, R.layout.spinner_item, viewModel.makes.map { it.makeName })
+        binding.spModel.adapter = ArrayAdapter(this, R.layout.spinner_item, viewModel.getCurrentModelsList())
 
         // set spinners to 2000 Toyota Avalon
-        binding.spYear.setSelection(years.indexOf(INITIAL_YEAR))
-        binding.spMake.setSelection(makes.indexOfFirst { it.makeName == INITIAL_MAKE })
+//        binding.spYear.setSelection(viewModel.years.indexOf(INITIAL_YEAR))
+//        binding.spMake.setSelection(viewModel.makes.indexOfFirst { it.makeName == INITIAL_MAKE })
 
         binding.spYear.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectedYear = years[position]
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.yearSelectionHandler(position)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
 
         binding.spMake.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectedMakeId = makes[position].makeID
-
-                if (selectedMakeId == 0) {
-                    currentModelsList = mutableListOf<String>("MODEL")
-                    val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, currentModelsList)
-                    binding.spModel.adapter = adapterChild
-                    return
-                }
-
-                val models = viewModel.getModelsFromMakeId(selectedMakeId)
-                val modelsNames = models.map { it.modelName }
-                currentModelsList = modelsNames.sorted().toMutableList()
-
-                for (model in models) {
-                    if (modelsNameIdMap[model.modelName] == null) {
-                        modelsNameIdMap.put(model.modelName, model.modelID)
-                    }
-                }
-
-                val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, currentModelsList)
-                binding.spModel.adapter = adapterChild
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.makeSelectionHandler(position)
+                val modelsList = viewModel.getCurrentModelsList()
+                println(modelsList)
+                binding.spModel.adapter = ArrayAdapter(this@MainActivity, R.layout.spinner_item, modelsList)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         binding.spModel.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (viewModel.getBeforeSelection()) {
-                    binding.spModel.setSelection(currentModelsList.indexOf("AVALON"))
+                    binding.spModel.setSelection(viewModel.getCurrentModelsList().indexOf("AVALON"))
                     viewModel.setBeforeSelection(false)
                     return
                 }
                 else {
-                    val selectedModelName = currentModelsList[position]
-                    selectedModelId = modelsNameIdMap[selectedModelName] ?: 0
+                    viewModel.modelSelectionHandler(position)
                 }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
 
@@ -131,13 +85,14 @@ class MainActivity : AppCompatActivity() {
 //            singleChoiceDialog.show()
 //            multiChoiceDialog.show()
 
+            val selectedYear = viewModel.getSelectedYear()
+            val selectedMakeId = viewModel.getSelectedYear()
+            val selectedModelId = viewModel.getSelectedYear()
 
-
-            val searchEntry = "$selectedYear ${makes.first { it.makeID == selectedMakeId }.makeName} ${ modelsNameIdMap.filterValues { it == selectedModelId }.keys.first()}"
+            val searchEntry = viewModel.currentSearchEntry()
             if (viewModel.isDuplicateSearch(searchEntry)) {
-
+                //TODO
             }
-
 
             // check for valid search String, String, Int, String
             if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
@@ -155,7 +110,6 @@ class MainActivity : AppCompatActivity() {
                     viewModel.updateLotResults(searchResult)
                     goToResultsScreen()
                 }
-
             }
         }
 
