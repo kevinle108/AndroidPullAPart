@@ -19,7 +19,8 @@ class MainViewModel: ViewModel() {
     private var savedYear = 0
     private var savedMakeID = 0
     private var savedModelID = 0
-    private var searchEntries = mutableListOf<String>()
+//    private var searchEntries = mutableListOf<String>()
+    private var searchEntries = mutableMapOf<String, Int>()
 
     fun setSavedYear(value: Int) { savedYear = value }
     fun setSavedMakeID(value: Int) { savedMakeID = value }
@@ -33,14 +34,10 @@ class MainViewModel: ViewModel() {
         return lotResults
     }
 
-    fun isDuplicateSearch(entry: String): Boolean {
-        if (searchEntries.contains(entry)) {
-            return true
-        }
-        else {
-            searchEntries.add(entry)
-            return false
-        }
+    fun getSearchEntries() = searchEntries.toMap()
+
+    fun addSearchEntry(entry: String, results: Int) {
+        searchEntries.put(entry, results)
     }
 
     fun updateLotResults(newResults: List<LotItem>): List<LotItem> {

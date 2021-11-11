@@ -169,10 +169,10 @@ class MainActivity : AppCompatActivity() {
 
             // check for valid search String, String, Int, String
             if (selectedYear != 0 && selectedMakeId != 0 && selectedModelId != 0) {
-                if(viewModel.isDuplicateSearch(searchEntry())) {
-                    goToResultsScreen()
-                    return@setOnClickListener
-                }
+//                if(viewModel.isDuplicateSearch(searchEntry())) {
+//                    goToResultsScreen()
+//                    return@setOnClickListener
+//                }
                 var searchResult = listOf<LotItem>()
                 runBlocking {
                     val year = selectedYear.toString()
@@ -184,7 +184,13 @@ class MainActivity : AppCompatActivity() {
                     zeroMatchesDialog.show()
 //                    Toast.makeText(this, "Sorry! No matches for this car.", Toast.LENGTH_SHORT).show()
                 } else {
-                    viewModel.updateLotResults(searchResult)
+                    val entry = searchEntry()
+                    val results = searchResult.count()
+                    val entries = viewModel.getSearchEntries()
+                    if (!entries.containsKey(entry)) {
+                        viewModel.addSearchEntry(entry, results)
+                        viewModel.updateLotResults(searchResult)
+                    }
                     goToResultsScreen()
                 }
 

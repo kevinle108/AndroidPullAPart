@@ -61,10 +61,11 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginBottom="8dp"
         android:text="Model"
         android:textColor="?android:textColorSecondary"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLot"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMake" />
 
@@ -91,10 +92,11 @@
         android:background="@drawable/roundbtn"
         android:contentDescription="Search Button"
         android:src="@drawable/ic_search"
-        app:layout_constraintBottom_toBottomOf="@+id/tvModel"
+        app:layout_constraintBottom_toBottomOf="@+id/spModel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toEndOf="@+id/spMake"
-        app:layout_constraintTop_toTopOf="@+id/tvYear" />
+        app:layout_constraintTop_toTopOf="@+id/spYear" />
 
     <TextView
         android:id="@+id/tvLocationTitle"
@@ -111,12 +113,15 @@
 
     <Button
         android:id="@+id/btnLot"
-        android:layout_width="731dp"
-        android:layout_height="wrap_content"
-        android:text="View Lot"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Results"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/spYear"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!--    <Spinner-->
