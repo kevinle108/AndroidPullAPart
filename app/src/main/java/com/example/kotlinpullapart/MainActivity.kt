@@ -192,7 +192,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnLot.setOnClickListener {
-            var lots: List<LotItem> = listOf<LotItem>()
+            if (viewModel.getLotResults().isEmpty()) {
+                Toast.makeText(this, "No results to display yet. Try searching first.", Toast.LENGTH_SHORT).show()
+
+                return@setOnClickListener
+            }
             goToResultsScreen()
         }
     }
