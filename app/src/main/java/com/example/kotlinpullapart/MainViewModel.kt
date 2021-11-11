@@ -16,15 +16,23 @@ class MainViewModel: ViewModel() {
     private var makes = listOf<CarMake>()
     private var makeToModelsMap = mutableMapOf<Int, List<CarModel>>()
     private var lotResults = listOf<LotItem>()
+    private var searchesToItemsMap = mutableMapOf<String, Int>()
+    private var beforeSelection = true
 
-    fun getLotResults(): List<LotItem> {
-        return lotResults
-    }
+    fun getLotResults(): List<LotItem> { return lotResults }
+
+    fun getBeforeSelection(): Boolean { return beforeSelection }
+
+    fun setBeforeSelection(value: Boolean) { beforeSelection = value }
 
     fun updateLotResults(newResults: List<LotItem>): List<LotItem> {
         lotResults = lotResults + newResults
         lotResults = lotResults.sortedBy { it.row}
         return lotResults
+    }
+
+    fun isDuplicateSearch(searchEntry: String): Boolean {
+        return searchesToItemsMap.containsKey(searchEntry)
     }
 
     fun getMakes() {
@@ -39,9 +47,7 @@ class MainViewModel: ViewModel() {
         var carModels = listOf<CarModel>()
         runBlocking {
             val response = RetrofitInstance.api.getModelsFromMakeId(id)
-            println(response)
             carModels = response
-            Log.i(TAG, "getModelsFromMakeId: ${carModels}")
         }
         return carModels
     }
@@ -73,16 +79,9 @@ class MainViewModel: ViewModel() {
                 make,
                 listOf(year)
             )
-//            val body = "{Locations: [8], MakeID: 56, Years: [2000], Models: [861]}"
-            Log.i(TAG, "request body: ${search}")
             val response = RetrofitInstance.api.vehicleSearch(search)
             if (response.isSuccessful) {
-                Log.i(TAG, "Response: $response")
-                Log.i(TAG, "Code: ${response.code()}")
-                Log.i(TAG, "Body: ${response.body()}")
                 val searchResult: SearchResult = response.body()!![0]
-                Log.i(TAG, "searchResult location id: ${searchResult.locationID}")
-                Log.i(TAG, "searchResult exact: ${searchResult.exact.size}")
                 lotLocations = searchResult.exact
             } else {
                 Log.i(TAG, "Failed request")

@@ -107,7 +107,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnLot"
+        android:id="@+id/btn_view_results"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="View Results"
