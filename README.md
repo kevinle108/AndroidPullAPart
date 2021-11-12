@@ -15,8 +15,14 @@ NOTE: At this time, the app only searches cars at Pull-A-Part's Louisville locat
 - Implements separate screens for search and results
 - Uses external libraries: RetroFit & Moshi for REST API
 
-## Known Issues:
-- Not fully responsive to screen sizes and orientation
+## Know Issues:
+- Orientation change causes current dropdown selections to reset, fix currently in progress
+
+## Tested Devices:
+- Motorola G Stylus
+- Motorola G7 Power
+- Google Pixel
+- Google Pixel 2 API 29 (Virtual Device)
 
 ## Special Thanks:
 - Mentors Zach Tibbits and Alex Vance for teaching me Android. This app wouldn't have been possible without you!
