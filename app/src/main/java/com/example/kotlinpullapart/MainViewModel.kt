@@ -16,18 +16,19 @@ class MainViewModel: ViewModel() {
     private var makes = listOf<CarMake>()
     private var makeToModelsMap = mutableMapOf<Int, List<CarModel>>()
     private var lotResults = listOf<LotItem>()
-    private var savedYear = 0
-    private var savedMakeID = 0
-    private var savedModelID = 0
+    var currentModelsList = mutableListOf<String>()
+    var savedYear = ""
+    var savedMakeID = ""
+    var savedModelID = ""
 //    private var searchEntries = mutableListOf<String>()
     private var searchEntries = mutableMapOf<String, Int>()
 
-    fun setSavedYear(value: Int) { savedYear = value }
-    fun setSavedMakeID(value: Int) { savedMakeID = value }
-    fun setSavedModelID(value: Int) { savedModelID = value }
+    // for storing current dropdown selections
 
-    fun getSavedSelections(): List<Int> {
-        return listOf<Int>(savedYear, savedMakeID, savedModelID)
+
+
+    fun getSavedSelections(): List<String> {
+        return listOf<String>(savedYear, savedMakeID, savedModelID)
     }
 
     fun getLotResults(): List<LotItem> {
