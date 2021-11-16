@@ -16,7 +16,7 @@ NOTE: At this time, the app only searches cars at Pull-A-Part's Louisville locat
 - Uses external libraries: RetroFit & Moshi for REST API
 
 ## Know Issues:
-- Orientation change causes current dropdown selections to reset, fix currently in progress
+- Orientation change causes current Model dropdown to reset to first item
 
 ## Tested Devices:
 - Motorola G Stylus
