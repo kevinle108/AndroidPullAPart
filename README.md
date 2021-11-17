@@ -1,4 +1,4 @@
-# AndroidPullAPart Car Search
+# Android Pull-A-Part Car Search
 
 ## Description:
 A Pull-A-Part Search App that supports multiple cars of different makes!
@@ -16,7 +16,8 @@ NOTE: At this time, the app only searches cars at Pull-A-Part's Louisville locat
 - Uses external libraries: RetroFit & Moshi for REST API
 
 ## Know Issues:
-- Orientation change causes current Model dropdown to reset to first item
+- Orientation change causes current Model dropdown selection to reset to first option
+- Currently only supports Louisville location, plan to support all locations in the future
 
 ## Tested Devices:
 - Motorola G Stylus
