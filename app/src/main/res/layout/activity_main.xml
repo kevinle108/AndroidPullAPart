@@ -8,10 +8,24 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Pull-A-Part"
+        android:textColor="?android:textColorSecondary"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/tvYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="30dp"
         android:text="Year"
         android:textColor="?android:textColorSecondary"
         android:textSize="30sp"
@@ -35,7 +49,7 @@
         android:id="@+id/tvMake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:text="Make"
         android:textColor="?android:textColorSecondary"
         android:textSize="30sp"
@@ -58,7 +72,7 @@
         android:id="@+id/tvModel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:text="Model"
         android:textColor="?android:textColorSecondary"
         android:textSize="30sp"
@@ -82,7 +96,7 @@
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/roundbtn"
         android:contentDescription="Search Button"
         android:src="@drawable/ic_search"
@@ -97,17 +111,15 @@
         android:id="@+id/tvLocationTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="Louisville"
-        android:textColor="@color/tangerine"
+        android:textColor="?android:textColorSecondary"
         android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvYear"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/btnLot"
