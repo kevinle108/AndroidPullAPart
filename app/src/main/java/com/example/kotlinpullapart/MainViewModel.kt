@@ -20,12 +20,7 @@ class MainViewModel: ViewModel() {
     var savedYear = ""
     var savedMakeID = ""
     var savedModelID = ""
-//    private var searchEntries = mutableListOf<String>()
     private var searchEntries = mutableMapOf<String, Int>()
-
-    // for storing current dropdown selections
-
-
 
     fun getSavedSelections(): List<String> {
         return listOf<String>(savedYear, savedMakeID, savedModelID)
