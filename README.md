@@ -27,7 +27,7 @@ NOTE: At this time, the app only searches cars at Pull-A-Part's Louisville locat
 
 ## Special Thanks:
 - Mentors Zach Tibbitts and Alex Vance for teaching me Android. This app wouldn't have been possible without you!
-- Code Louisville Program for always providing me great classes to further my software development skills
+- Code Louisville Program for always providing me with great classes to further my software development skills
 - https://www.pullapart.com/ for the original inspiration
 
 ## Author
