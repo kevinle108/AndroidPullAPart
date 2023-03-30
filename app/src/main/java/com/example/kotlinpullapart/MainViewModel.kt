@@ -33,7 +33,7 @@ class MainViewModel: ViewModel() {
     fun getSearchEntries() = searchEntries.toMap()
 
     fun addSearchEntry(entry: String, results: Int) {
-        searchEntries.put(entry, results)
+        searchEntries[entry] = results
     }
 
     fun updateLotResults(newResults: List<LotItem>): List<LotItem> {
@@ -65,7 +65,7 @@ class MainViewModel: ViewModel() {
             viewModelScope.launch {
                 for (make: CarMake in makes) {
                     fetchedModels = RetrofitInstance.api.getModelsFromMakeId(make.makeID)
-                    makeToModelsMap.put(make.makeID, fetchedModels)
+                    makeToModelsMap[make.makeID] = fetchedModels
                 }
             }
         }

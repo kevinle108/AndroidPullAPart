@@ -79,23 +79,23 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        binding.spMake.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedMakeId = makes[position].makeID
-                viewModel.savedMakeID = makes.first { it.makeID == selectedMakeId }.makeName
-                val models = viewModel.getModelsFromMakeId(selectedMakeId)
-                val modelsNames = models.map { it.modelName }
-                viewModel.currentModelsList = modelsNames.sorted().toMutableList()
-                for (model in models) {
-                    if (modelsNameIdMap[model.modelName] == null) {
-                        modelsNameIdMap.put(model.modelName, model.modelID)
-                    }
-                }
-                val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, viewModel.currentModelsList)
-                binding.spModel.adapter = adapterChild
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+//        binding.spMake.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                selectedMakeId = makes[position].makeID
+//                viewModel.savedMakeID = makes.first { it.makeID == selectedMakeId }.makeName
+//                val models = viewModel.getModelsFromMakeId(selectedMakeId)
+//                val modelsNames = models.map { it.modelName }
+//                viewModel.currentModelsList = modelsNames.sorted().toMutableList()
+//                for (model in models) {
+//                    if (modelsNameIdMap[model.modelName] == null) {
+//                        modelsNameIdMap[model.modelName] = model.modelID
+//                    }
+//                }
+//                val adapterChild = ArrayAdapter(applicationContext, R.layout.spinner_item, viewModel.currentModelsList)
+//                binding.spModel.adapter = adapterChild
+//            }
+//            override fun onNothingSelected(parent: AdapterView<*>?) {}
+//        }
 
 
         binding.spModel.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
